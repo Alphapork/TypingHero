@@ -1,8 +1,8 @@
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.Writer.BufferedWriter;
-import java.io.Writer.OutputStreamWriter.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -51,15 +51,16 @@ class Server extends Thread{
        	try
 	    {
 			
-			//Output in file
-			DataInputStream textin = new DataInputStream(s.getInputStream());
-			DataOutputStream textout = new DataOutputStream(s.getOutputStream());
-			while(true)
-			{
-				String input = (String)textin.readUTF();
-				BufferedWriter writer = new BufferedWriter(new FileWriter(testfileserver));
-				writer.append(input + '\n');	
-			}
+		//Output in file
+		
+	       	DataInputStream textin = new DataInputStream(s.getInputStream());
+       		DataOutputStream textout = new DataOutputStream(s.getOutputStream());
+		while(true)
+	       	{
+       			String input = (String)textin.readUTF();
+       			BufferedWriter writer = new BufferedWriter(new FileWriter(test.txt,true));
+       			writer.append(input + '\n');	
+       		}
 			
 			
 			
