@@ -13,6 +13,7 @@ public class ServerClient {
 	System.out.println("Server will run until user type quit");
 	try{
 	     ss = new ServerSocket(9999);
+	     System.out.println("Server now running");
 	}catch (Exception e)
 	    {
 		System.out.println(e);
