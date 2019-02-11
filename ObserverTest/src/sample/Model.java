@@ -1,9 +1,11 @@
 package sample;
+
 import java.util.ArrayList;
 import java.util.Observable;
 
 public class Model extends Observable {
 
+    sample.Network Client = new sample.Network();
     private int pos;
     private ArrayList<String> words;
     private int wordno;
@@ -52,5 +54,10 @@ public class Model extends Observable {
         } else {
             System.out.println("WRONG");
         }
+    }
+
+    public void sendToServer()
+    {
+        Client.send();
     }
 }
