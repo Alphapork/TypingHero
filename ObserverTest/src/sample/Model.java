@@ -42,6 +42,8 @@ public class Model extends Observable {
         System.out.println(input + words.get(wordno).charAt(pos));
         if(input.charAt(0) == words.get(wordno).charAt(pos)) {
             System.out.println("CORRECT");
+            setChanged();
+            notifyObservers(new ArgCommand(Commands.CORRECT, null));
             pos++;
             if (pos >= words.get(wordno).length()) {
                 wordno++;
@@ -53,6 +55,8 @@ public class Model extends Observable {
             }
         } else {
             System.out.println("WRONG");
+            setChanged();
+            notifyObservers(new ArgCommand(Commands.INCORRECT, null));
         }
     }
 

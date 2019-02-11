@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.Observable;
@@ -20,11 +21,27 @@ public class GUI extends StackPane implements Observer {
     }
     @Override
     public void update(Observable o, Object arg) {
-        ArgCommand command = (ArgCommand)arg;
-        Commands com = command.getCommand();
+        if (arg instanceof ArgCommand) {
+            ArgCommand command = (ArgCommand) arg;
+            Commands com = command.getCommand();
 
-        switch (com) {
-            case NEXT_WORD: DisplayChar((String)command.getArg());
+            switch (com) {
+
+                case NEXT_WORD:
+                    DisplayChar((String) command.getArg()); System.out.println("NEXT");
+                    text.setFill(Color.BLACK);
+                    break;
+                case CORRECT:
+                    text.setFill(Color.LIMEGREEN);
+                    System.out.println("Green");
+                    break;
+                case INCORRECT:
+                    text.setFill(Color.RED);
+                    System.out.println("Red");
+                    break;
+
+
+            }
         }
     }
 }
