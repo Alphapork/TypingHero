@@ -1,6 +1,8 @@
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.Writer.BufferedWriter;
+import java.io.Writer.OutputStreamWriter.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -48,17 +50,33 @@ class Server extends Thread{
 	System.out.println("ServerSocket created");
        	try
 	    {
-		DataInputStream textin = new DataInputStream(s.getInputStream());
-		DataOutputStream response = new DataOutputStream(s.getOutputStream()); 
-		while(true)
+			
+			//Output in file
+			DataInputStream textin = new DataInputStream(s.getInputStream());
+			DataOutputStream textout = new DataOutputStream(s.getOutputStream());
+			while(true)
+			{
+				String input = (String)textin.readUTF();
+				BufferedWriter writer = new BufferedWriter(new FileWriter(testfileserver));
+				writer.append(input + '\n');	
+			}
+			
+			
+			
+			/* (Output in console)
+			DataInputStream textin = new DataInputStream(s.getInputStream());
+			DataOutputStream response = new DataOutputStream(s.getOutputStream()); 
+			while(true)
 		    {
 			String input = (String)textin.readUTF();
 			System.out.println(input);
 			response.writeUTF("response");
 			response.flush();
 			
-		    }       
+		    }   
+			*/			
        	    }
+			
        	catch (Exception e)
        	    {
        		System.out.println(e);
