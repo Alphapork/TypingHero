@@ -4,11 +4,11 @@ import java.net.*;
 
 public class Network {
 
-    private Socket test;
+    private Socket client;
 
     public Network() {
         try{
-            test  = new Socket("90.229.141.157", 9999);
+            client  = new Socket("90.229.141.157", 9999);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -17,9 +17,12 @@ public class Network {
 
     public void send(){
         try {
-            DataOutputStream text = new DataOutputStream(test.getOutputStream());
-            text.writeUTF("Testar");
-            text.flush();
+            DataOutputStream sending = new DataOutputStream(client.getOutputStream());
+            sending.writeUTF("Testar");
+            sending.flush();
+            DataInputStream response = new DataInputStream(client.getInputStream());
+            String responseFrom = (String) response.readUTF();
+            System.out.println(responseFrom);
         } catch (Exception e) {
             System.out.println(e);
         }

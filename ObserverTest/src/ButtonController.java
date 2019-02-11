@@ -15,6 +15,5 @@ public class ButtonController implements EventHandler<ActionEvent>
     public void handle(ActionEvent ev)
     {
         model.sendToServer();
-        System.out.println("button");
     }
 }
