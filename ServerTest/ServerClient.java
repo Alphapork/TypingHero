@@ -1,7 +1,5 @@
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.BufferedWriter;
+import java.io.*;
 import java.io.OutputStreamWriter.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -38,11 +36,12 @@ public class ServerClient {
 }
 
 
-class Server extends Thread{
-    Socket s;
-    //För file inläsning
+class Server extends Thread {
+	Socket s;
+	//För file inläsning
 	public final static String FILE_TO_RECEIVE = "test.txt"
-			
+	public final static int FILE_SIZE = 2147483647; // TEMP FILE SIZE MUST BE BIGGER THEN ACUALLY FILE SIZE
+
 
 
     public Server(Socket s)
@@ -54,33 +53,28 @@ class Server extends Thread{
 	System.out.println("ServerSocket created");
        	try
 	    {
+			byte[] fileSize = new Byte[FILE_SIZE];
+			InputStream input = s.getInputStream();
+			FileOutputStream fileOut = new FileOutputStream(FILE_TO_RECEIVE);
+			BufferedOutputStream fileBOut = new BufferedOutputStream(fileOut);
+			int bytesread = input.read(fileSize, 0, fileSize.length);
+			int current = bytesread;
 
+			do
 
-
-			/*(Output in file)
-			DataInputStream textin = new DataInputStream(s.getInputStream());
-			DataOutputStream textout = new DataOutputStream(s.getOutputStream());
-			while(true)
 			{
-				String input = (String)textin.readUTF();
-				BufferedWriter writer = new BufferedWriter(new FileWriter(testfileserver));
-				writer.append(input + '\n');	
-			}
-			//
-			(Output in console)
-			DataInputStream textin = new DataInputStream(s.getInputStream());
-			DataOutputStream response = new DataOutputStream(s.getOutputStream()); 
-			while(true)
-		    {
-			String input = (String)textin.readUTF();
-			System.out.println(input);
-			response.writeUTF("response");
-			response.flush();
-			
-		    }   
-			*/			
-       	    }
-			
+				bytesread = input.read(fileSize, current, fileSize.length - current);
+				if (bytesread >= 0) {
+					current += bytesread;
+				}
+			}while(bytesread >-1)
+
+			fileBOut.write(fileSize,0,current);
+			fileBOut.flush();
+			System.out.println("File " + FILE_TO_RECEIVE + " downloaded(" + current + " bytes read)");
+			fileBOut.close();
+			fileOut.close();
+	    }
        	catch (Exception e)
        	    {
        		System.out.println(e);

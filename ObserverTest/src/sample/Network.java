@@ -32,13 +32,15 @@ public class Network {
         try{
             File testFile = new File("testfil.txt");
             byte [] filesize = new byte[(int)testFile.length()];
-            FileInputStream fileS = new FileInputStream(testFile);
-            BufferedInputStream fileB = new BufferedInputStream(fileS);
-            fileB.read(filesize,0,filesize.length);
+            FileInputStream fileIn = new FileInputStream(testFile);
+            BufferedInputStream fileBIn = new BufferedInputStream(fileIn);
+            fileBIn.read(filesize,0,filesize.length);
             OutputStream output = client.getOutputStream();
             System.out.println("Sending file(" + filesize.length + " bytes)");
             output.write(filesize,0,filesize.length);
             output.flush();
+            fileBIn.close();
+            fileIn.close();
             System.out.println("Client done");
             DataInputStream response = new DataInputStream(client.getInputStream());
             String serverresponse = (String) response.readUTF();
