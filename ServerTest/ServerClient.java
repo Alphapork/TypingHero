@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
-
+import java.io.File;
 public class ServerClient {
     public static void main (String[] arg)
     {
@@ -54,13 +54,17 @@ class Server extends Thread{
 		//Output in file
 		
 	       	DataInputStream textin = new DataInputStream(s.getInputStream());
-			DataOutputStream textout = new DataOutputStream(s.getOutputStream());
-			BufferedWriter writer = new BufferedWriter(new FileWriter("test.txt",true));
+		DataOutputStream textout = new DataOutputStream(s.getOutputStream());
+		
 		while(true)
 	       	{
+		        File fil = new File("test.txt");
+			FileWriter writer = new FileWriter(fil, true);
        			String input = (String)textin.readUTF();
-				writer.append(input + '\n');	
-				   
+			writer.write(input + '\n');
+			writer.close();
+			textout.writeUTF("Skrivit i fil");
+			textout.flush();
        		}
 			
 			
