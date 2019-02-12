@@ -30,7 +30,7 @@ public class Network {
     public void sendFile()
     {
         try{
-            File testFile = new File("testfil.txt");
+            File testFile = new File("C:\\devSkit\\testfil.txt");
             byte [] filesize = new byte[(int)testFile.length()];
             FileInputStream fileIn = new FileInputStream(testFile);
             BufferedInputStream fileBIn = new BufferedInputStream(fileIn);
@@ -44,6 +44,7 @@ public class Network {
             System.out.println("Client done");
             DataInputStream response = new DataInputStream(client.getInputStream());
             String serverresponse = (String) response.readUTF();
+            System.out.println(serverresponse);
         }catch (Exception e){
             System.out.println(e);
         }
