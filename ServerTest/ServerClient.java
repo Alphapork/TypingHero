@@ -40,22 +40,20 @@ public class ServerClient {
 
 class Server extends Thread{
     Socket s;
-
+    
     public Server(Socket s)
     {
 	this.s = s;
     }
+    
     public void  run()
     {
-	System.out.println("ServerSocket created");
+	System.out.println("New Client->Server connection created");
        	try
-	    {
-			
-		//Output in file
-		
+	    {			
+		//Output in file	
 	       	DataInputStream textin = new DataInputStream(s.getInputStream());
 		DataOutputStream textout = new DataOutputStream(s.getOutputStream());
-		
 		while(true)
 	       	{
 		        File fil = new File("test.txt");
@@ -63,12 +61,10 @@ class Server extends Thread{
        			String input = (String)textin.readUTF();
 			writer.write(input + '\n');
 			writer.close();
+			System.out.println("Wrote: " + input + " in file test.txt");
 			textout.writeUTF("Skrivit i fil");
 			textout.flush();
        		}
-			
-			
-			
 			/* (Output in console)
 			DataInputStream textin = new DataInputStream(s.getInputStream());
 			DataOutputStream response = new DataOutputStream(s.getOutputStream()); 
@@ -81,8 +77,7 @@ class Server extends Thread{
 			
 		    }   
 			*/			
-       	    }
-			
+       	    }	
        	catch (Exception e)
        	    {
        		System.out.println(e);
