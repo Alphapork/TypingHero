@@ -58,18 +58,7 @@ class Server extends Thread {
 			FileOutputStream fileOut = new FileOutputStream(FILE_TO_RECEIVE);
 			BufferedOutputStream fileBOut = new BufferedOutputStream(fileOut);
 			int bytesread = input.read(fileSize, 0, fileSize.length);
-			int current = bytesread;
-
-			do
-
-			{
-				bytesread = input.read(fileSize, current, fileSize.length - current);
-				if (bytesread >= 0) {
-					current += bytesread;
-				}
-			}while(bytesread >-1);
-
-			fileBOut.write(fileSize,0,current);
+			fileBOut.write(fileSize,0,bytesread);
 			fileBOut.flush();
 			System.out.println("File " + FILE_TO_RECEIVE + " downloaded(" + current + " bytes read)");
 			fileBOut.close();

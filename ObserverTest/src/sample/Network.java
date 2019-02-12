@@ -21,7 +21,7 @@ public class Network {
             sending.writeUTF("Testar");
             sending.flush();
             DataInputStream response = new DataInputStream(client.getInputStream());
-            String responseFrom = (String) response.readUTF();
+            String responseFrom = (String)response.readUTF();
             System.out.println(responseFrom);
         } catch (Exception e) {
             System.out.println(e);
@@ -42,8 +42,9 @@ public class Network {
             fileBIn.close();
             fileIn.close();
             System.out.println("Client done");
+            //väntar på bekräftelse från server
             DataInputStream response = new DataInputStream(client.getInputStream());
-            String serverresponse = (String) response.readUTF();
+            String serverresponse = (String)response.readUTF();
             System.out.println(serverresponse);
         }catch (Exception e){
             System.out.println(e);
