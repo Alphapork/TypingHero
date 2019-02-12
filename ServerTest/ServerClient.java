@@ -60,7 +60,7 @@ class Server extends Thread {
 			int bytesread = input.read(fileSize, 0, fileSize.length);
 			fileBOut.write(fileSize,0,bytesread);
 			fileBOut.flush();
-			System.out.println("File " + FILE_TO_RECEIVE + " downloaded(" + current + " bytes read)");
+			System.out.println("File " + FILE_TO_RECEIVE + " downloaded(" + bytesread + " bytes read)");
 			fileBOut.close();
 			fileOut.close();
 			//Skicka response
