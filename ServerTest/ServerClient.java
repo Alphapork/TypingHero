@@ -39,8 +39,8 @@ public class ServerClient {
 class Server extends Thread {
 	Socket s;
 	//För file inläsning
-	public final static String FILE_TO_RECEIVE = "test.txt"
-	public final static int FILE_SIZE = 2147483647; // TEMP FILE SIZE MUST BE BIGGER THEN ACUALLY FILE SIZE
+        public final static String FILE_TO_RECEIVE = "test.txt";
+	public final static int FILE_SIZE = 10000; // TEMP FILE SIZE MUST BE BIGGER THEN ACUALLY FILE SIZE
 
 
 
@@ -53,7 +53,7 @@ class Server extends Thread {
 	System.out.println("ServerSocket created");
        	try
 	    {
-			byte[] fileSize = new Byte[FILE_SIZE];
+			byte[] fileSize = new byte[FILE_SIZE];
 			InputStream input = s.getInputStream();
 			FileOutputStream fileOut = new FileOutputStream(FILE_TO_RECEIVE);
 			BufferedOutputStream fileBOut = new BufferedOutputStream(fileOut);
@@ -67,13 +67,17 @@ class Server extends Thread {
 				if (bytesread >= 0) {
 					current += bytesread;
 				}
-			}while(bytesread >-1)
+			}while(bytesread >-1);
 
 			fileBOut.write(fileSize,0,current);
 			fileBOut.flush();
 			System.out.println("File " + FILE_TO_RECEIVE + " downloaded(" + current + " bytes read)");
 			fileBOut.close();
 			fileOut.close();
+			//Skicka response
+			DataOutputStream response = new DataOutputStream(s.getOutputStream());
+			response.writeUTF("Fil mottagen");
+			response.flush();
 	    }
        	catch (Exception e)
        	    {
