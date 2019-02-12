@@ -54,12 +54,13 @@ class Server extends Thread{
 		//Output in file
 		
 	       	DataInputStream textin = new DataInputStream(s.getInputStream());
-       		DataOutputStream textout = new DataOutputStream(s.getOutputStream());
+			DataOutputStream textout = new DataOutputStream(s.getOutputStream());
+			BufferedWriter writer = new BufferedWriter(new FileWriter("test.txt",true));
 		while(true)
 	       	{
        			String input = (String)textin.readUTF();
-       			BufferedWriter writer = new BufferedWriter(new FileWriter(test.txt,true));
-       			writer.append(input + '\n');	
+				writer.append(input + '\n');	
+				   
        		}
 			
 			
