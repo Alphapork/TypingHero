@@ -5,7 +5,7 @@ import java.util.Observable;
 
 public class Model extends Observable {
 
-    sample.Network Client = new sample.Network();
+    Network Client = new Network();
     private int pos;
     private ArrayList<String> words;
     private int wordno;
@@ -62,6 +62,7 @@ public class Model extends Observable {
 
     public void sendToServer()
     {
-        Client.send();
+        //Client.send();
+        Client.sendFile();
     }
 }

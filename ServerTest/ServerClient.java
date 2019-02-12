@@ -1,8 +1,8 @@
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.Writer.BufferedWriter;
-import java.io.Writer.OutputStreamWriter.*;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -40,6 +40,10 @@ public class ServerClient {
 
 class Server extends Thread{
     Socket s;
+    //För file inläsning
+	public final static String FILE_TO_RECEIVE = "test.txt"
+			
+
 
     public Server(Socket s)
     {
@@ -50,8 +54,10 @@ class Server extends Thread{
 	System.out.println("ServerSocket created");
        	try
 	    {
-			
-			//Output in file
+
+
+
+			/*(Output in file)
 			DataInputStream textin = new DataInputStream(s.getInputStream());
 			DataOutputStream textout = new DataOutputStream(s.getOutputStream());
 			while(true)
@@ -60,10 +66,8 @@ class Server extends Thread{
 				BufferedWriter writer = new BufferedWriter(new FileWriter(testfileserver));
 				writer.append(input + '\n');	
 			}
-			
-			
-			
-			/* (Output in console)
+			//
+			(Output in console)
 			DataInputStream textin = new DataInputStream(s.getInputStream());
 			DataOutputStream response = new DataOutputStream(s.getOutputStream()); 
 			while(true)
